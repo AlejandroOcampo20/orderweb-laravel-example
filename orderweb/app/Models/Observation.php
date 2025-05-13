@@ -10,4 +10,7 @@ class Observation extends Model
     use HasFactory;
 
     protected $table = 'observation';
+    protected $fillable =[
+        'description'
+    ];
 }
