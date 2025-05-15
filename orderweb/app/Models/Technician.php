@@ -16,4 +16,9 @@ class Technician extends Model
         'speciality',
         'phone'
     ];
+
+    public function ativities()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }
