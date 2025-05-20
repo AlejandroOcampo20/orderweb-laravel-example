@@ -50,6 +50,6 @@ class DatabaseSeeder extends Seeder
         //seeders de prueba
 
         //$this->call(TestTechnicianSeeder::class);
-        $this->call(TestActivitySeeder::class);
+        //$this->call(TestActivitySeeder::class);
     }
 }
