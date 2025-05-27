@@ -2,7 +2,7 @@
 @section('title','Editar Observaciones')
 @section('header', 'Editar Observaciones')
 @section('content')
-    
+    @include('templates/messages')
     <div class="row">
          <div class="col-lg-12 mb-4">
             <form action="{{ route('observation.update',$observation['id']) }}" method="POST">
