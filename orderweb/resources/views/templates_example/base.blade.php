@@ -14,14 +14,15 @@
             <aside>
                 @include('templates/menu')
             </aside>
-            <!--Aqui se insertan las paginas que heredan de base-->
-            <section>
-                @yield('content')
-            </section>
-            <br>
-            @include('templates/footer')
         </div>
+        <!-- Aquí se insertan las paginas que heredan base -->
+        <section>
+            @yield('content')
+        </section>
+        <br>
+        @include('templates/footer')
     </div>
+
     @yield('scripts')
 </body>
 </html>

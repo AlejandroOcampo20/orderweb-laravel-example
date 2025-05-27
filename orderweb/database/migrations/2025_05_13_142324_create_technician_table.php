@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('document')->unique()->comment('cédula');
             $table->string('name', 80)->comment('nombre');
             $table->string('speciality', 50)->nullable()->comment('especialidad');
-            $table->string('phone', 30)->nullable()->comment('telefono');
+            $table->string('phone', 30)->nullable()->comment('teléfono');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('technician');
+        Schema::dropIfExists('techniciany');
     }
 };

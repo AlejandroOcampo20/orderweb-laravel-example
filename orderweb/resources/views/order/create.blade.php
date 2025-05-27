@@ -1,36 +1,54 @@
 @extends('templates.base')
-@section('title', 'crear orden')
-@section('header', 'crear orden')
+@section('title','Crear orden')
+@section('header', 'Crear orden')
 @section('content')
+    
     <div class="row">
-        <div class="col-lg-12 mb-4">
-            <form action="" method="POST">
+         <div class="col-lg-12 mb-4">
+            <form action="{{ route('order.store') }}" method="POST">
                 @csrf
-                <div class="row form-gruop">
-                    <div class="col-lg-12 mb-4">
-                        <label for="date">Fecha</label>
-                        <input type="date" class="form-control" name="date" id="date" required>
+                <div class="row form-group">
+                    <div class="col-lg-6 mb-4">
+                        <label for="legalization_date">Fecha Legalización</label>
+                        <input type="date" class="form-control" name="legalization_date" id="legalization_date" required>
                     </div>
-                    <div class="col-lg-12 mb-4">
-                        <label for="city">Ciudad</label>
-                        <select name="city_id" id="city_id" class="form-control">
-                            <option value="Tuluá">Tuluá</option>
-                            <option value="Cali">Cali</option>
-                            <option value="Buga">Buga</option>
-                            <option value="Palmira">Palmira</option>
-                        </select>
+                    <div class="col-lg-6 mb-4">
+                        <label for="address">Dirección</label>
+                        <input type="text" class="form-control" name="address" id="address" required>
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-lg-6 mb-4">
-                        <label for="causal_id">Causal</label>
-                        <br>
-                        <input type="text" class="form control" name="causal" id="causal" required>
+                        <label for="city">Ciudad</label>
+                        <select name="city" id="technician_id" class="form-control">
+                            <option value="tulua">TULUÁ</option>
+                            <option value="cali">CALI</option>
+                            <option value="buga">BUGA</option>
+                            <option value="palmira">PALMIRA</option>
+                        </select>
                     </div>
                     <div class="col-lg-6 mb-4">
-                        <label for="type_activity_id">Observación</label>
-                        <select name="type_activity_id" id="type_activity_id" class="form-control">
+                        <label for="causal_id">Causal</label>
+                        <select name="causal_id" id="causal_id" class="form-control">
                             <option value="">Seleccione</option>
+                            @foreach($causals as $causal)
+                                <option value="{{ $causal['id'] }}">
+                                    {{ $causal['description'] }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-lg-12 mb-4">
+                        <label for="observation_id">Observación</label>
+                        <select name="observation_id" id="observation_id" class="form-control">
+                            <option value="">Seleccione</option>
+                            @foreach($observations as $observation)
+                                <option value="{{ $observation['id'] }}">
+                                    {{ $observation['description'] }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -43,7 +61,15 @@
                     </div>
                 </div>
             </form>
-        </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fa-soli fa-lightbuld"></i>Para añadir actividades a la orden, primero debe crearla y luego dar click en la accion editar.
+                    </div>
+
+                </div>
+            </div>
+         </div>
     </div>
-  
 @endsection

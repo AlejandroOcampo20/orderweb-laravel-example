@@ -8,17 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Technician extends Model
 {
     use HasFactory;
-
     protected $table = 'technician';
-    protected $fillable =[
+     protected $fillable = [
         'document',
         'name',
         'speciality',
-        'phone'
+        'phone'    
     ];
 
-    public function ativities()
-    {
-        return $this->hasMany(Activity::class);
+    public function activities(){
+        return $this->hasMany(Activity:: class); //hasmany solo se pasa el modelo por que no tiene fk
     }
 }

@@ -14,10 +14,10 @@ class TypeActivitySeeder extends Seeder
     public function run(): void
     {
         TypeActivity::insert([
-            ['description'=> 'REPARACION'],
-            ['description'=> 'CONSTRUCCION'],
-            ['description'=> 'INSTALACION'],
-            ['description'=> 'SUSPENCION']
+            ['description' => 'REPARACION'],
+            ['description' => 'CONSTRUCCION'],
+            ['description' => 'INSTALACION'],
+            ['description' => 'SUSPENSION']
         ]);
     }
 }

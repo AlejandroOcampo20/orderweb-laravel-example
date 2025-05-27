@@ -9,18 +9,16 @@ class OrderActivity extends Model
 {
     use HasFactory;
     protected $table = 'order_activity';
-    protected $fillable =[
+    protected $fillable = [
         'order_id',
-        'activity_id'
+        'activity_id',
     ];
 
-    public function order()
-    {
+    public function order(){
         return $this->belongsTo(Order::class, 'order_id');
     }
 
-    public function activity()
-    {
+    public function activity(){
         return $this->belongsTo(Activity::class, 'activity_id');
     }
 }

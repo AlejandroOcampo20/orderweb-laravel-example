@@ -1,17 +1,17 @@
 @extends('templates.base')
-@section('title','Editar causales')
-@section('header', 'Editar causales')
+@section('title','Editar Tipos De Actividades')
+@section('header', 'Editar Tipos De Actividades')
 @section('content')
     
     <div class="row">
          <div class="col-lg-12 mb-4">
-            <form action="{{ route('causal.update', $causal['id']) }}" method="POST">
+            <form action="{{ route('typeactivity.update',$typeActivity['id']) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row form-group">
                     <div class="col-lg-12 mb-4">
                         <label for="description">Descripción</label>
-                        <input type="text" class="form-control" name="description" id="description" value="{{ $causal['description'] }}" required>
+                        <input type="text" class="form-control" name="description" id="description" value="{{ $typeActivity['description'] }}" required>
                     </div>
                 </div>
                 <div class="row">
@@ -19,7 +19,7 @@
                         <button type="submit" class="btn btn-primary btn-block">Guardar</button>
                     </div>
                     <div class="col-lg-6">
-                        <a href="{{ route('causal.index') }}" class="btn btn-secondary btn-block">Cancelar</a>
+                        <a href="{{ route('typeactivity.index') }}" class="btn btn-secondary btn-block">Cancelar</a>
                     </div>
                 </div>
             </form>

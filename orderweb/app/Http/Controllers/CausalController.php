@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Causal;
 use Illuminate\Http\Request;
 
+use function Laravel\Prompts\alert;
+
 class CausalController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(){
         $causals = Causal::all();
         return view('causal.index', compact('causals'));
     }
@@ -19,65 +20,52 @@ class CausalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
+    public function create(){
         return view('causal.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //dd($request);
+    public function store(Request $request){
+        //dd($request); sirve para depurar errores
         $causal = Causal::create($request->all());
-        session()->flash('message', 'Registro creado exitosamente');
+        session()->flash('message', 'El registro se creo correctamente');
         return redirect()->route('causal.index');
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
+    public function show(string $id){
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
+    public function edit(string $id){
         $causal = Causal::find($id);
-        if($causal)//si la causal existe
-        {
+        if($causal) {
             return view('causal.edit', compact('causal'));
         }
-        else
-        {
-            session()->flash('warnig', 'No se encuentra el registro solicitado');
+        else {
+            session()->flash('error', 'No se encontró el registro');
             return redirect()->route('causal.index');
         }
-
-        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
+    public function update(Request $request, string $id){
         $causal = Causal::find($id);
-        if($causal)//si la causal existe
-        {
+        if($causal) {
             $causal->update($request->all());
-            session()->flash('message', 'Registro actualizado exitosamente');
+            session()->flash('message', 'El registro se actualizo correctamente');
         }
-        else
-        {
-            session()->flash('warnig', 'No se encuentra el registro solicitado');
-            
+        else {
+            session()->flash('error', 'Ha ocurrido un problema al actualizar la causal');
         }
         return redirect()->route('causal.index');
     }
@@ -85,18 +73,14 @@ class CausalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
+    public function destroy(string $id){
         $causal = Causal::find($id);
-        if($causal)//si la causal existe
-        {
+        if($causal) {
             $causal->delete();
-            session()->flash('message', 'Registro eliminado exitosamente');
+            session()->flash('message', 'El registro se elimino correctamente');
         }
-        else
-        {
-            session()->flash('warnig', 'No se encuentra el registro solicitado');
-            
+        else {
+            session()->flash('error', 'Ha ocurrido un problema al eliminar la causal');
         }
         return redirect()->route('causal.index');
     }

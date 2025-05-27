@@ -1,54 +1,50 @@
 @extends('templates.base')
-@section('title', 'Orden')
-@section('header', 'Orden')
+@section('title','Actividades')
+@section('header', 'Actividades')
 @section('content')
-    
 
-    <div  class="row">
+    <div class="row">
         <div class="col-lg-12 mb-4 d-grid gap-2 d-md-block">
-            <a href="{{ route('order.create') }}" class="btn btn-primary">Crear</a>
+            <a href="{{ route('activity.create') }}" class="btn btn-primary">Crear</a>
         </div>
-    </div>
-
+    </div>    
+    
     @include('templates.messages')
 
     <div class="row">
         <div class="col-lg-12 mb-4">
-            <table id="table_data" class="table table-striped table hover">
+            <table id="table_data" class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>ID</th>
                         <th>Descripción</th>
                         <th>Horas</th>
-                        <th>Tecnico</th>
+                        <th>técnico</th>
+                        <th>tipo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <body>
+                    @foreach($activities as $activity)
                     <tr>
-                        <td>1</td>
-                        <td>Actividad prueba</td>
-                        <td>16</td>
-                        <td>Aitor tilla</td>
-                        <td>Tipo de prueba</td>
-                        <td >
-                            <a href="#" class="btn btn-primary btn-circle btn-sm" title="Editar">
-                                <i class="far fa-edit"></i> 
+                        <td>{{ $activity['id'] }}</td>
+                        <td>{{ $activity['description'] }}</td>
+                        <td>{{ $activity['hours'] }}</td>
+                        <td>{{ $activity->technician->document }} - {{ $activity->technician->name }}</td>
+                        <td>{{ $activity->type_activity->description }}</td>
+                        <td>
+                            <a href="{{ route('activity.edit',$activity['id']) }}" class="btn btn-primary btn-circle btn-sm" title="Editar"><i class="far fa-edit"></i>
                             </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm" title="Eliminar"
-                                onclick="return remove();">
-                                <i class="fas fa-trash"></i>
+                            <a href="{{ route('activity.destroy',$activity['id']) }}" class="btn btn-danger btn-circle btn-sm" class="Eliminar" onclick="return remove();"><i class="fa-solid fa-trash-can"></i>
                             </a>
                         </td>
                     </tr>
-                </tbody>
+                    @endforeach
+                </body>
             </table>
         </div>
     </div>
-
 @endsection
-
 @section('scripts')
     <script src="{{ asset('js/general.js') }}"></script>
-    
 @endsection

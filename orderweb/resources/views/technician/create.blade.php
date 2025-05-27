@@ -1,15 +1,36 @@
 @extends('templates.base')
-@section('title', 'crear tecnico')
-@section('header', 'crear tecnico')
+@section('title','Crear Técnico')
+@section('header', 'Crear Técnico')
 @section('content')
+    
     <div class="row">
-        <div class="col-lg-12 mb-4">
-            <form action="" method="POST">
+         <div class="col-lg-12 mb-4">
+            <form action="{{ route('technician.store') }}" method="POST">
                 @csrf
-                <div class="row form-gruop">
-                    <div class="col-lg-12 mb-4">
-                        <label for="description">Descripción</label>
-                        <input type="text" class="form-control" name="description" id="description" required>
+                <div class="row form-group">
+                    <div class="col-lg-6 mb-4">
+                        <label for="document">Documento</label>
+                        <input type="number" class="form-control" name="document" id="document" required>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" class="form-control" name="name" id="name" required>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-lg-6 mb-4">
+                        <label for="speciality">Especialización</label>
+                        <input list="specialities-list" class="form-control" name="speciality" id="speciality">
+                        <datalist id="specialities-list">
+                            <option>Instalación de redes</option>
+                            <option>Construcción</option>
+                            <option>Lectura de redes</option>
+                            <option>Plomería</option>
+                        </datalist>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <label for="phone">Teléfono</label>
+                        <input type="text" class="form-control" name="phone" id="phone">
                     </div>
                 </div>
                 <div class="row">
@@ -21,7 +42,6 @@
                     </div>
                 </div>
             </form>
-        </div>
+         </div>
     </div>
-  
 @endsection
