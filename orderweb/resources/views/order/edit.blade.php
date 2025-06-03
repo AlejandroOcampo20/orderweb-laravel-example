@@ -2,9 +2,8 @@
 @section('title','Editar orden')
 @section('header', 'Editar orden')
 @section('content')
-@section('templates/messages')
+@include('templates/messages')
     
-@endsection
     
     <div class="row">
          <div class="col-lg-12 mb-4">

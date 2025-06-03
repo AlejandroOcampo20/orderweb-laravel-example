@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\CausalController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\OrderController;
@@ -18,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+ 
+route::get('/',[Authcontroller::class, 'index']);
 
-Route::get('/', function () {
+Route::middleware('auth')->get('/index', function () {
     return view('index');
 })->name('index');
 
@@ -28,8 +31,21 @@ Route::get('/', function () {
 })->name('test2');  */
 
 
+Route::prefix('auth')->group(function () {
+    route::get('/index',[AuthController::class, 'index'])->name('auth.index');
+    route::post('/login',[AuthController::class, 'login'])->name('auth.login');
+    route::get('/register',[AuthController::class, 'create'])->name('auth.register');
+    route::post('/register',[AuthController::class, 'store'])->name('auth.store');
+});
+
+Route::middleware('auth')->prefix('auth')->group(function () {
+    route::get('/logout',[AuthController::class, 'logout'])->name('auth.logout');
+});
+
+
+
 // RUTA PARA CAUSAL
-Route::prefix('causal')->group(function(){
+Route::middleware('auth')->prefix('causal')->group(function(){
     Route::get('/index',[CausalController::class, 'index'])->name('causal.index');
     Route::get('/create',[CausalController::class, 'create'])->name('causal.create'); 
     Route::get('/edit/{id}',[CausalController::class, 'edit'])->name('causal.edit');
@@ -39,7 +55,7 @@ Route::prefix('causal')->group(function(){
 });
 
 // RUTA PARA OBSERVATION
-Route::prefix('observation')->group(function(){
+Route::middleware('auth')->prefix('observation')->group(function(){
     Route::get('/index',[ObservationController::class, 'index'])->name('observation.index');
     Route::get('/create',[ObservationController::class, 'create'])->name('observation.create'); 
     Route::get('/edit/{id}',[ObservationController::class, 'edit'])->name('observation.edit');
@@ -50,7 +66,7 @@ Route::prefix('observation')->group(function(){
 
 
 // RUTA PARA TYPE_ACTIVITY
-Route::prefix('typeactivity')->group(function(){
+Route::middleware('auth')->prefix('typeactivity')->group(function(){
     Route::get('/index',[TypeActivityController::class, 'index'])->name('typeactivity.index');
     Route::get('/create',[TypeActivityController::class, 'create'])->name('typeactivity.create'); 
     Route::get('/edit/{id}',[TypeActivityController::class, 'edit'])->name('typeactivity.edit');
@@ -61,7 +77,7 @@ Route::prefix('typeactivity')->group(function(){
 
 
 // RUTA PARA ACTIVITY
-Route::prefix('activity')->group(function(){
+Route::middleware('auth')->prefix('activity')->group(function(){
     Route::get('/index',[ActivityController::class, 'index'])->name('activity.index');
     Route::get('/create',[ActivityController::class, 'create'])->name('activity.create'); 
     Route::get('/edit/{id}',[ActivityController::class, 'edit'])->name('activity.edit');
@@ -72,7 +88,7 @@ Route::prefix('activity')->group(function(){
 
 
 // RUTA PARA ORDER
-Route::prefix('order')->group(function(){
+Route::middleware('auth')->prefix('order')->group(function(){
     Route::get('/index',[OrderController::class, 'index'])->name('order.index');
     Route::get('/create',[OrderController::class, 'create'])->name('order.create'); 
     Route::get('/edit/{id}',[OrderController::class, 'edit'])->name('order.edit');
@@ -85,7 +101,7 @@ Route::prefix('order')->group(function(){
 
 
 // RUTA PARA TECHNICIAN
-Route::prefix('technician')->group(function(){
+Route::middleware('auth')->prefix('technician')->group(function(){
     Route::get('/index',[TechnicianController::class, 'index'])->name('technician.index');
     Route::get('/create',[TechnicianController::class, 'create'])->name('technician.create'); 
     Route::get('/edit/{id}',[TechnicianController::class, 'edit'])->name('technician.edit');

@@ -25,7 +25,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <body>
+                <tbody>
                     @foreach($orders as $order)
                     <tr>
                         <td>{{ $order['id'] }}</td>
@@ -37,12 +37,12 @@
                         <td>
                             <a href="{{ route('order.edit',$order['id']) }}" class="btn btn-primary btn-circle btn-sm" title="Editar"><i class="far fa-edit"></i>
                             </a>
-                            <a href="{{ route('order.destroy',$order['id']) }}" class="btn btn-danger btn-circle btn-sm" class="Eliminar" onclick="return remove();"><i class="fa-solid fa-trash-can"></i>
+                            <a href="{{ route('order.destroy',$order['id']) }}" class="btn btn-danger btn-circle btn-sm" class="Eliminar" onclick="return remove();"><i class="fas fa-trash"></i>
                             </a>
                         </td>
                     </tr>
                     @endforeach
-                </body>
+                </tbody>
             </table>
         </div>
     </div>

@@ -2,6 +2,7 @@
 @section('title','Editar Técnico')
 @section('header', 'Editar Técnico')
 @section('content')
+    @include('templates.messages')
     
     <div class="row">
          <div class="col-lg-12 mb-4">
