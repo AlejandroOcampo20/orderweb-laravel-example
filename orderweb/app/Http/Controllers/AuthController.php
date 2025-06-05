@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class Authcontroller extends Controller
 {
+
+    private $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|max:255|min:8',
+        'password_confirmation' => 'required|same:password'
+    ];
+
+    private $traductionAttributes =[
+        'name' => 'nombre',
+        'password' => 'contraseña'
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -33,7 +47,17 @@ class Authcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), $this->rules);
+        $validator->setAttributeNames($this->traductionAttributes);
+        if($validator->fails())
+        {
+            $errors = $validator->errors();
+            return redirect()->route('auth.register')->withInput()->withErrors($errors);
+        }
+        $request['password'] = bcrypt($request['password']);
+        $user = User::create($request->all());
+        session()->flash('message', 'registro creado exitosamente');
+        return redirect()->route('auth.index');
     }
 
     /**
