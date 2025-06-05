@@ -5,6 +5,7 @@ use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\CausalController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\TypeActivityController;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +33,7 @@ Route::middleware('auth')->get('/index', function () {
 
 
 
-
+//Ruta para AUTH 
 Route::prefix('auth')->group(function () {
     route::get('/index',[AuthController::class, 'index'])->name('auth.index');
     route::post('/login',[AuthController::class, 'login'])->name('auth.login');
@@ -110,4 +111,10 @@ Route::middleware(['auth', 'can:supervisor'])->prefix('technician')->group(funct
     Route::post('/store',[TechnicianController::class, 'store'])->name('technician.store');
     Route::put('/update/{id}',[TechnicianController::class,'update'])->name('technician.update');
     Route::get('/destroy/{id}',[TechnicianController::class, 'destroy'])->name('technician.destroy');    
+});
+
+//Ruta reportes de administrador
+Route::middleware(['auth', 'can:administrador'])->prefix('reports')->group(function () {
+    route::get('/index',[ReportController::class, 'index'])->name('reports.index');
+    route::get('/export_technicians',[ReportController::class, 'export_technicians'])->name('reports.technicians');
 });

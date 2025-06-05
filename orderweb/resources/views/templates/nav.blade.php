@@ -146,6 +146,9 @@
                 </li>
             @endcan
 
+            @can('administrador')
+                
+            
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Reportes
@@ -159,11 +162,11 @@
                     </a>
                     <div id="collapse7" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#">Consultar</a>
+                            <a class="collapse-item" href="{{ route('reports.index') }}">Consultar</a>
                         </div>
                     </div>
                 </li>
-           
+            @endcan
 
 
             <!-- Divider -->
