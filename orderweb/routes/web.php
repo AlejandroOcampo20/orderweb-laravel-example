@@ -118,3 +118,11 @@ Route::middleware(['auth', 'can:administrador'])->prefix('reports')->group(funct
     route::get('/index',[ReportController::class, 'index'])->name('reports.index');
     route::get('/export_technicians',[ReportController::class, 'export_technicians'])->name('reports.technicians');
 });
+
+//ruta reporte actividad por tecnico
+Route::middleware(['auth', 'can:administrador'])->prefix('reports')->group(function () {
+    route::get('/index',[ReportController::class, 'index'])->name('reports.index');
+    route::get('/export_technicians',[ReportController::class, 'export_technicians'])->name('reports.technicians');
+    route::post('/export_activities_by_technician',[ReportController::class, 'export_activities_by_technician'])
+    ->name('reports.activities_technician');
+});

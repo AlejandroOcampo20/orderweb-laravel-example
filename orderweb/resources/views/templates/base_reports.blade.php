@@ -8,10 +8,10 @@
 </head>
 <body>
     <section id="header">
-        <table width="100%" style="border-collapse:collapse, border: 1px solid ">
+        <table width="100%" style="border-collapse:collapse; border: 1px solid ">
             <tr>
                 <th>
-                    <div>
+                    <div  style="text-aling: center">
                         <img src="{{ asset('img/logo.jpg') }}" alt="logo">
                     </div>
                 </th>
