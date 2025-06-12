@@ -126,3 +126,9 @@ Route::middleware(['auth', 'can:administrador'])->prefix('reports')->group(funct
     route::post('/export_activities_by_technician',[ReportController::class, 'export_activities_by_technician'])
     ->name('reports.activities_technician');
 });
+
+Route::middleware(['auth', 'can:administrador'])->prefix('reports')->group(function () {
+    route::get('/index',[ReportController::class, 'index'])->name('reports.index');
+    route::post('/export_order_by_date',[ReportController::class, 'export_order_by_date'])
+    ->name('reports.order_date');
+});
