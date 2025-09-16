@@ -6,15 +6,14 @@ use App\Models\TypeActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TypeActivityController extends Controller
+class typeActivityController extends Controller
 {
-
     private $rules = [
         'description' => 'required|string|min:3|max:100'
     ];
 
     private $traductionAttributes = [
-        'description' => 'descripcion'
+        'description' => 'descripción'
     ];
 
     /**
@@ -23,7 +22,8 @@ class TypeActivityController extends Controller
     public function index()
     {
         $typeActivities = TypeActivity::all();
-        return view('typeactivity.index',compact('typeActivities'));
+        
+        return view('type_activity.index', compact('typeActivities'));
     }
 
     /**
@@ -31,7 +31,7 @@ class TypeActivityController extends Controller
      */
     public function create()
     {
-        return view('typeactivity.create');
+        return view('type_activity.create');
     }
 
     /**
@@ -46,18 +46,12 @@ class TypeActivityController extends Controller
             $errors = $validator->errors();
             return redirect()->route('type_activity.create')->withInput()->withErrors($errors);
         }
+
         $typeActivity = TypeActivity::create($request->all());
-        session()->flash('message','El tipo de actividad se ha creado exitosamente...');
-        return redirect()->route('typeactivity.index');
+        session()->flash('message', 'Tipo de actividad creado exitosamente');
+        return redirect()->route('type_activity.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -65,13 +59,13 @@ class TypeActivityController extends Controller
     public function edit(string $id)
     {
         $typeActivity = TypeActivity::find($id);
-        if($typeActivity){
-            return view('typeactivity.edit',compact('typeActivity'));
+        if($typeActivity){ //Si existe
+            return view('type_activity.edit', compact('type_activity'));
         }
-        else {
-            session()->flash('error','No se encontró el tipo de actividad');
-            return redirect()->route('typeactivity.index');
+        else{
+            session()->flash('warning', 'No se encontró el tipo de actividad');
         }
+        return redirect()->route('type_activity.index');
     }
 
     /**
@@ -84,17 +78,18 @@ class TypeActivityController extends Controller
         if($validator->fails())
         {
             $errors = $validator->errors();
-            return redirect()->route('type_activity.edit', $id)->withInput()->withErrors($errors);
+            return redirect()->route('type_activity.create')->withInput()->withErrors($errors);
         }
+
         $typeActivity = TypeActivity::find($id);
-        if($typeActivity){
+        if($typeActivity){ //Si existe
             $typeActivity->update($request->all());
-            session()->flash('message','El tipo de actividad se actualizo correctamente...');
+            session()->flash('message', 'Tipo de actividad no encontrado');
         }
-        else {
-            session()->flash('error','Ha ocurrido un problema al actualizar el tipo de actividad');
+        else{
+            session()->flash('warning', 'No se encontró el tipo de actividad');
         }
-        return redirect()->route('typeactivity.index');
+        return redirect()->route('type_activity.index');
     }
 
     /**
@@ -103,13 +98,14 @@ class TypeActivityController extends Controller
     public function destroy(string $id)
     {
         $typeActivity = TypeActivity::find($id);
-        if($typeActivity){
+        if($typeActivity){ //Si existe
             $typeActivity->delete();
-            session()->flash('message','El tipo de actividad se elimino correctamente...');
+            session()->flash('message', 'Observación eliminada exitosamente');
         }
-        else {
-            session()->flash('error','Ha ocurrido un problema al eliminar el tipo de actividad');
+        else{
+            session()->flash('warning', 'No se encontró la observación');
         }
-        return redirect()->route('typeactivity.index');
+
+        return redirect()->route('type_activity.index');
     }
 }

@@ -1,11 +1,11 @@
 @extends('templates.base')
-@section('title', 'Causales')
-@section('header', 'Causales')
+@section('title', 'Crear Tipo de Actividad')
+@section('header', 'Crear Tipo de Actividad')
 @section('content')
     
     <div class="row">
         <div class="col-lg12 mb-4 d-grid-gap-2 d-md-block">
-            <a href="{{ route('causal.create') }}" class="btn btn-primary">Crear</a>
+            <a href="{{ route('type_activity.create') }}" class="btn btn-primary">Crear</a>
         </div>
     </div>
 
@@ -22,15 +22,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($causals as $causal)
+                    @foreach ($typeActivities as $typeActivity)
                         <tr>
-                            <td>{{ $causal["id"] }}</td>
-                            <td>{{ $causal["description"] }}</td>
+                            <td>{{ $typeActivity["id"] }}</td>
+                            <td>{{ $typeActivity["description"] }}</td>
                             <td>
-                                <a href="{{ route('causal.edit', $causal["id"]) }}" class="btn btn-primary btn-circle btn-sm" title="Editar">
+                                <a href="{{ route('type_activity.edit', $typeActivity["id"]) }}" class="btn btn-primary btn-circle btn-sm" title="Editar">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a href="{{ route('causal.destroy', $causal["id"]) }}" class="btn btn-danger btn-circle btn-sm" title="Eliminar">
+                                <a href="{{ route('type_activity.destroy', $typeActivity["id"]) }}" class="btn btn-danger btn-circle btn-sm" title="Eliminar">
                                     <i class="fas fa-trash" onclick="return remove();"></i>
                                 </a>
                             </td>

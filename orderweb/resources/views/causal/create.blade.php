@@ -1,28 +1,31 @@
 @extends('templates.base')
-@section('title','Crear causales')
-@section('header', 'Crear causales')
+@section('title', 'Crear causal')
+@section('header', 'Crear causal')
 @section('content')
-    @include('templates.messages')
-    <div class="row">
-         <div class="col-lg-12 mb-4">
-            <form action="{{ route('causal.store') }}" method="POST">
-                @csrf
-                <div class="row form-group">
-                    <div class="col-lg-12 mb-4">
-                        <label for="description">Descripción</label>
-                        <input type="text" class="form-control" name="description" id="description" 
-                        required value="{{ old('description') }}">
-                    </div>
+@include('templates.messages')
+
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <form action="{{ route('causal.store') }}" method="post">
+            @csrf
+            <div class="row form-group">
+                <div class="col-lg-12 mb-4">
+                    <label for="description">Descripción</label>
+                    <input type="text" class="form-control" name="description" id="description" 
+                    value="{{ old('description') }}" required>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-                    </div>
-                    <div class="col-lg-6">
-                        <a href="{{ route('causal.index') }}" class="btn btn-secondary btn-block">Cancelar</a>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
                 </div>
-            </form>
-         </div>
+                <br><br>
+                <div class="col-lg-6">
+                    <a href="#" class="btn btn-secondary btn-block">Cancelar</a>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+    
 @endsection

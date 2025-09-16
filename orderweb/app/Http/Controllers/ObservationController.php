@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ObservationController extends Controller
 {
-
     private $rules = [
         'description' => 'required|string|min:3|max:100'
     ];
 
     private $traductionAttributes = [
-        'description' => 'descripcion'
+        'description' => 'descripción'
     ];
 
     /**
@@ -23,7 +22,8 @@ class ObservationController extends Controller
     public function index()
     {
         $observations = Observation::all();
-        return view('observation.index',compact('observations'));
+        
+        return view('observation.index', compact('observations'));
     }
 
     /**
@@ -46,17 +46,10 @@ class ObservationController extends Controller
             $errors = $validator->errors();
             return redirect()->route('observation.create')->withInput()->withErrors($errors);
         }
-        $observation = Observation::create($request->all());
-        session()->flash('message','La observación fue creada exitosamente');
-        return redirect()->route('observation.index');
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $observation = Observation::create($request->all());
+        session()->flash('message', 'Observacion creada exitosamente');
+        return redirect()->route('observation.index');
     }
 
     /**
@@ -65,13 +58,13 @@ class ObservationController extends Controller
     public function edit(string $id)
     {
         $observation = Observation::find($id);
-        if($observation){
-            return view('observation.edit',compact('observation'));
+        if($observation){ //Si existe
+            return view('observation.edit', compact('observation'));
         }
-        else {
-            session()->flash('error','No se encontró la observación...');
-            return redirect()->route('observation.index');
+        else{
+            session()->flash('warning', 'No se encontró la observación');
         }
+        return redirect()->route('observation.index');
     }
 
     /**
@@ -84,15 +77,16 @@ class ObservationController extends Controller
         if($validator->fails())
         {
             $errors = $validator->errors();
-            return redirect()->route('observation.edit', $id)->withInput()->withErrors($errors);
+            return redirect()->route('observation.create')->withInput()->withErrors($errors);
         }
+
         $observation = Observation::find($id);
-        if($observation){
+        if($observation){ //Si existe
             $observation->update($request->all());
-            session()-> flash('message', 'La observación se actualizo correctamente...');
+            session()->flash('message', 'Observación no encontrada');
         }
         else{
-            session()->flash('error','Ha ocurrido un problema al actualizar la observación');
+            session()->flash('warning', 'No se encontró la observación');
         }
         return redirect()->route('observation.index');
     }
@@ -103,13 +97,14 @@ class ObservationController extends Controller
     public function destroy(string $id)
     {
         $observation = Observation::find($id);
-        if($observation){
+        if($observation){ //Si existe
             $observation->delete();
-            session()-> flash('message', 'La observación se elimino correctamente...');
+            session()->flash('message', 'Observación eliminada exitosamente');
         }
         else{
-            session()->flash('error','Ha ocurrido un problema al eliminar la observación');
+            session()->flash('warning', 'No se encontró la observación');
         }
+
         return redirect()->route('observation.index');
     }
 }

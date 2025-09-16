@@ -21,9 +21,8 @@ class UsersMailable extends Mailable
      */
     public function __construct($user, $content)
     {
-        $this->user = $user;
-        $this->content = $content;
-
+        $this->user=$user;
+        $this->content=$content;
     }
 
     /**
@@ -32,7 +31,7 @@ class UsersMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Alerta de supervision en OrderWeb',
+            subject: 'Alert de supervisión de OrderWeb',
         );
     }
 

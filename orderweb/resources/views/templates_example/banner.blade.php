@@ -2,7 +2,7 @@
 <html>
     <body>
         <div>
-            <img class="img_banner" src="{{ asset('img/banner.png') }}" alt="banner">
+            <img class="img_banner" src="{{ asset('img/banner.png') }}"></img>
         </div>
     </body>
 </html>

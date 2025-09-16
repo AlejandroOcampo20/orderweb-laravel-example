@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href=" {{ asset('css/custom.css') }} ">
 </head>
 <body>
     <div id="container">
         @include('templates/banner')
+
         <div>
             <aside>
                 @include('templates/menu')
             </aside>
+            <!-- Aquí se insertan las páginas que heredan de base -->
+            <section>
+                @yield('content')
+            </section>
+            <br>
+            @include('templates/footer')
         </div>
-        <!-- Aquí se insertan las paginas que heredan base -->
-        <section>
-            @yield('content')
-        </section>
-        <br>
-        @include('templates/footer')
     </div>
 
     @yield('scripts')

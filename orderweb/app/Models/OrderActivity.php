@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class OrderActivity extends Model
 {
     use HasFactory;
+
     protected $table = 'order_activity';
-    protected $fillable = [
+    protected $filllable = [
         'order_id',
-        'activity_id',
+        'activity_id'
     ];
 
     public function order(){

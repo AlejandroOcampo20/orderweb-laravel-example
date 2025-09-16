@@ -22,8 +22,7 @@
                 </tbody>
             </table>
         @else
-            <p><strong>No existen resultados en el reporte</strong></p>
+            <p><strong>No existen resultados en el reporte.</strong></p>
         @endif
     </section>
-
 @endsection

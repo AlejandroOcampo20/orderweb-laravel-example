@@ -10,29 +10,26 @@ use Illuminate\Support\Facades\Validator;
 
 class ActivityController extends Controller
 {
-
     private $rules = [
         'description' => 'required|string|min:3|max:100',
-        'hours' => 'required|numeric|min:1|max:9999999999',
+        'hours' => 'required|numeric|min:1|max:999999999',
         'technician_id' => 'required|numeric|min:1|max:99999999999999999999',
         'type_activity_id' => 'required|numeric|min:1|max:99999999999999999999'
     ];
 
-    private $traductionAttributes = [
-        'description' => 'descripcion',
+    private $traduccionAttributes = [
+        'description' => 'descripción',
         'hours' => 'horas',
         'technician_id' => 'técnico',
         'type_activity_id' => 'tipo de actividad'
-
     ];
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $activities = Activity::all();
-        return view('activity.index',compact('activities'));
+        return view('activity.index', compact('activities'));
     }
 
     /**
@@ -41,8 +38,8 @@ class ActivityController extends Controller
     public function create()
     {
         $technicians = Technician::all();
-        $types = TypeActivity::all();
-        return view('activity.create',compact('technicians','types'));
+        $types = TypeActivity::All();
+        return view('activity.create', compact('technicians', 'types'));
     }
 
     /**
@@ -51,14 +48,14 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->rules);
-        $validator->setAttributeNames($this->traductionAttributes);
+        $validator->setAttributeNames(($this->traduccionAttributes));
         if($validator->fails())
         {
             $errors = $validator->errors();
             return redirect()->route('activity.create')->withInput()->withErrors($errors);
         }
         $activity = Activity::create($request->all());
-        session()->flash('message', 'La actividad se creo correctamente');
+        session()->flash('message', 'Actividad creada exitosamente');
         return redirect()->route('activity.index');
     }
 
@@ -76,13 +73,15 @@ class ActivityController extends Controller
     public function edit(string $id)
     {
         $activity = Activity::find($id);
-        if($activity) {
+        if($activity) //si existe
+        {
             $technicians = Technician::all();
-            $types = TypeActivity::all();
-            return view('activity.edit', compact('activity','technicians','types'));
+            $types = TypeActivity::All();
+            return view('activity.edit', compact('activity', 'technicians', 'types'));
         }
-        else {
-            session()->flash('error', 'No se encontró la actividad');
+        else
+        {
+            session()->flash('warning', 'No se encuentra la actividad solicitado');
             return redirect()->route('activity.index');
         }
     }
@@ -93,20 +92,24 @@ class ActivityController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), $this->rules);
-        $validator->setAttributeNames($this->traductionAttributes);
+        $validator->setAttributeNames(($this->traduccionAttributes));
         if($validator->fails())
         {
             $errors = $validator->errors();
             return redirect()->route('activity.edit')->withInput()->withErrors($errors);
         }
         $activity = Activity::find($id);
-        if($activity) {
+        if($activity) //si existe
+        {
             $activity->update($request->all());
-            session()->flash('message', 'La actividad se actualizo correctamente');
+            session()->flash('message', 'Actividad actualizada exitosamente');
         }
-        else {
-            session()->flash('error', 'Ha ocurrido un problema al actualizar la actividad');
+        else
+        {
+            session()->flash('warning', 'No se encuentra la actividad solicitado');
+            return redirect()->route('activity.index');
         }
+
         return redirect()->route('activity.index');
     }
 
@@ -116,13 +119,17 @@ class ActivityController extends Controller
     public function destroy(string $id)
     {
         $activity = Activity::find($id);
-        if($activity) {
+        if($activity) //si existe
+        {
             $activity->delete();
-            session()->flash('message', 'La actividad se elimino correctamente');
+            session()->flash('message', 'Registro eliminado exitosamente');
         }
-        else {
-            session()->flash('error', 'Ha ocurrido un problema al eliminar la actividad');
+        else
+        {
+            session()->flash('warning', 'No se encuentra el registro solicitado');
+            return redirect()->route('activity.index');
         }
+        
         return redirect()->route('activity.index');
     }
 }

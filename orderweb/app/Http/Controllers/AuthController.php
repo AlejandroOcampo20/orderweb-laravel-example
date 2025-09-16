@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class Authcontroller extends Controller
+class AuthController extends Controller
 {
 
     private $rules = [
@@ -17,17 +17,18 @@ class Authcontroller extends Controller
         'password_confirmation' => 'required|same:password'
     ];
 
-    private $traductionAttributes =[
+    private $traductionAttributes = [
         'name' => 'nombre',
-        'password' => 'contraseña'
+        'email' => 'correo electrónico',
+        'password' => 'contraseña',
+        'password_confirmation' => 'confirmar contraseña'
     ];
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        if(Auth::check())
-        {
+    public function index() {
+        if (Auth::check()) {
             return redirect()->route('index');
         }
         
@@ -37,88 +38,78 @@ class Authcontroller extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
+    public function create() {
         return view('auth.register');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validator = Validator::make($request->all(), $this->rules);
         $validator->setAttributeNames($this->traductionAttributes);
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             $errors = $validator->errors();
             return redirect()->route('auth.register')->withInput()->withErrors($errors);
         }
+        
         $request['password'] = bcrypt($request['password']);
         $user = User::create($request->all());
-        session()->flash('message', 'registro creado exitosamente');
+        session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('auth.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
+    public function edit(string $id) {
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
+    public function update(Request $request, string $id) {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
+    public function destroy(string $id) {
         //
     }
 
-
     /**
-     * abrir seccion del usuario
+     * Login de usuarios
      */
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         $credentials = $request->validate([
-            'email'=>'required|email',
-            'password'=>'required'
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('index');
+            return redirect()->intended('index');            
         }
-        return back()->withErrors([
-            'email'=>'Credenciales incorrectas'
-        ])->onlyInput('email');
 
+        return back()->withErrors([
+            'email' => 'Credenciales incorrectas'
+        ])->onlyInput('email');
     }
 
     /**
-     * cerrar seccion del usuario
+     * Cerrar sesión del usuario
      */
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

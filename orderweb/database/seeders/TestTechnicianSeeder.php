@@ -14,10 +14,11 @@ class TestTechnicianSeeder extends Seeder
     public function run(): void
     {
         $technician = new Technician();
-        $technician->document = 9898989898;
-        $technician->name = 'Arnulfo ramon';
-        $technician->speciality = 'Medición redes';
-        $technician->phone = '3161234';
+
+        $technician->document = 1116222333;
+        $technician->name = 'Alba Rotte';
+        $technician->speciality = 'Plomería';
+        $technician->phone = "2255353";
         $technician->save();
     }
 }

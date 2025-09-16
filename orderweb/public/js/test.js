@@ -1,3 +1,3 @@
-function show_alert() {
-    alert("ERROR");
+function show_alert(){
+    alert("Ou!!!");
 }

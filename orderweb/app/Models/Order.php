@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
     protected $table = 'order';
     protected $fillable = [
         'legalization_date',
@@ -17,15 +18,18 @@ class Order extends Model
         'causal_id'
     ];
 
-    public function causal(){
+    public function causal()
+    {
         return $this->belongsTo(Causal::class, 'causal_id');
     }
 
-    public function observation(){
-        return $this->belongsTo(Observation::class, 'observation_id');
+    public function observation()
+    {
+        return $this->belongsTo(Causal::class, 'observation_id');
     }
 
-    public function activities(){
+    public function activities()
+    {
         return $this->belongsToMany(Activity::class, 'order_activity', 'order_id', 'activity_id');
     }
 }

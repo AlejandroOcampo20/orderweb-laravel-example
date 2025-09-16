@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class TypeActivity extends Model
 {
     use HasFactory;
-    protected $table = 'type_activity';
-     protected $fillable = [
-        'description' 
+
+    protected $table = "type_activity";
+    protected $fillable = [
+        'description',
     ];
 
-     public function activities(){
-        return $this->hasMany(Activity:: class); //hasmany solo se pasa el modelo por que no tiene fk
+    public function activities(){
+        return $this->hasMany(Activity::class);
     }
 }

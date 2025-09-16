@@ -34,13 +34,14 @@ class Handler extends ExceptionHandler
     {
         if($e instanceof NotFoundHttpException)
         {
-            return response()->view('errors.404',[],404);
+            return response()->view('errors.404', [], 404);
         }
+
         if($e instanceof UnauthorizedHttpException)
         {
-            return response()->view('errors.403',[],403);
+            return response()->view('errors.403', [], 403);
         }
 
         return parent::render($request, $e);
-    }    
+    }
 }

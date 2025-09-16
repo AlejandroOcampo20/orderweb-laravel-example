@@ -1,8 +1,8 @@
 @extends('templates.base')
-@section('title','Supervisores')
+@section('title', 'Supervisores')
 @section('header', 'Supervisores')
 @section('content')
-    @include('templates/messages')
+    @include('templates.messages')
 
     <div class="row">
         <div class="col-lg-12">
@@ -18,7 +18,7 @@
                         </select>
                     </div>
                     <div class="col-lg-6">
-                        <label for="user_id">Mensaje</label>
+                        <label for="user_id">Mensaje:</label>
                         <textarea name="content" id="content" cols="30" rows="10" class="form-control" required></textarea>
                     </div>
                 </div>

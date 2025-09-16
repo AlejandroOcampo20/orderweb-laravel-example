@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activity', function (Blueprint $table) {
+        Schema::create('order', function (Blueprint $table) {
             $table->id();
-            $table->string('description', 100)->comment('descripción');
-            $table->integer('hours')->comment('horas de duración');
-            $table->foreignId('technician_id')->constrained('technician')
+            $table->date('legalization_date')->comment('fecha legalización');
+            $table->string('address', 50)->comment('dirección');
+            $table->string('city', 50)->comment('ciudad');
+            $table->foreignId('causal_id')->constrained('causal')
                     ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('type_activity_id')->constrained('type_activity')
+            $table->foreignId('observation_id')->nullable()->constrained('observation')
                     ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activityy');
+        Schema::dropIfExists('order');
     }
 };
